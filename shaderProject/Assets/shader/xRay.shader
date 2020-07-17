@@ -9,7 +9,7 @@
 		SubShader
 		{
 			// No culling or depth
-			Cull Off ZWrite off ZTest Always
+			
 
 			Pass
 			{
@@ -20,8 +20,7 @@
 				  Pass Replace
 				  ZFail Keep
 				}
-			 blend srcalpha oneminussrcalpha
-
+			Cull Off ZWrite on ZTest lequal
 				CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
@@ -66,12 +65,12 @@
 			{
 
 				Stencil {
-				  Ref 3
-				  Comp lequal
+				  Ref 4
+				  Comp equal
 				  Pass Replace
 				  ZFail Keep
 				}
-
+				Cull Off ZWrite on ZTest always
 				CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
