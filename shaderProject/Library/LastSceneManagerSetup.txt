@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Edge/scene/StencilEdge.unity
-  isLoaded: 1
-  isActive: 1
