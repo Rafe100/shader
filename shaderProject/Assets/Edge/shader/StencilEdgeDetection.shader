@@ -5,18 +5,20 @@ Shader "Custom/StencilEdgeProcess"
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
-		_StencilColor("StencilBuffer Color",Color) = (1,1,1,1)
+		_StencilColor("StencilBuffer Color",Color) = (1,1,0,1)
 		_RefValue("Ref Value",Int) = 2
 	}
 		SubShader
 		{
-			Stencil{
-				Ref[_RefValue]
-				Comp Equal
-			}
+		
 
 			Pass
 			{
+				Stencil{
+					Ref[_RefValue]
+					Comp Equal
+				}
+
 				CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
