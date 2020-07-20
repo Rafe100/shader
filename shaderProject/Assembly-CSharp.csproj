@@ -62,7 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Edge\script\StencilEdge.cs" />
     <None Include="Assets\shader\wall.shader" />
-    <None Include="Assets\Edge\shader\StencilEdgeProcess.shader" />
+    <None Include="Assets\Edge\shader\StencilEdgeOutLine.shader" />
     <None Include="Assets\Edge\shader\StencilEdgeDetection.shader" />
     <None Include="Assets\Edge\shader\StencilEdgeObject.shader" />
     <None Include="Assets\shader\xRay.shader" />

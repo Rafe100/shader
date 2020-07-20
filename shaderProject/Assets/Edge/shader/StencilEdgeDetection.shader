@@ -1,21 +1,22 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Custom/StencilEdgeDetection"
+Shader "Custom/StencilEdgeProcess"
 {
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
-		_Stencil2Color("Stencil2 Color",COLOR) = (1,1,1,1)
+		_StencilColor("StencilBuffer Color",Color) = (1,1,1,1)
+		_RefValue("Ref Value",Int) = 2
 	}
 		SubShader
 		{
+			Stencil{
+				Ref[_RefValue]
+				Comp Equal
+			}
+
 			Pass
 			{
-				Stencil
-				{
-				  Ref 2
-				  Comp Equal
-				}
 				CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
@@ -32,6 +33,9 @@ Shader "Custom/StencilEdgeDetection"
 					float4 vertex : SV_POSITION;
 				};
 
+				sampler2D _MainTex;
+				fixed4 _StencilColor;
+
 				v2f vert(appdata v)
 				{
 					v2f o;
@@ -39,11 +43,9 @@ Shader "Custom/StencilEdgeDetection"
 					return o;
 				}
 
-				sampler2D _MainTex;
-				fixed4 _Stencil2Color;
 				fixed4 frag(v2f i) : SV_Target
 				{
-					return _Stencil2Color;
+					return _StencilColor;
 				}
 				ENDCG
 			}
