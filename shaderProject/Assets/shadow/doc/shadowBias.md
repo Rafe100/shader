@@ -10,7 +10,7 @@ bias为常量可以解决部分acne问题，还有依靠斜率来计算的slop s
 
 
 
-
+http://cwyman.appspot.com/papers/i3d14_adaptiveBias.pdf
 
 <font color=#0099ff>unity_LightShadowBias.z</font>  值受到shadowMap分辨率大小的影响，准确的说是shadowMap像素大小相关
 
