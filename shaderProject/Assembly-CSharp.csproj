@@ -62,9 +62,15 @@
   <ItemGroup>
     <Compile Include="Assets\Edge\script\StencilEdge.cs" />
     <Compile Include="Assets\Edge\script\StencilView.cs" />
+    <Compile Include="Assets\shadow\script\DepthRT.cs" />
+    <Compile Include="Assets\shadow\script\LogMatrix.cs" />
+    <Compile Include="Assets\shadow\script\Shadow.cs" />
     <None Include="Assets\shader\wall.shader" />
     <None Include="Assets\Edge\shader\StencilEdgeOutLine.shader" />
     <None Include="Assets\Edge\shader\StencilEdgeDetection.shader" />
+    <None Include="Assets\shadow\shader\shadowCaster.shader" />
+    <None Include="Assets\shadow\shader\shadow.shader" />
+    <None Include="Assets\shadow\shader\NewImageEffectShader.shader" />
     <None Include="Assets\Edge\shader\StencilEdgeObject.shader" />
     <None Include="Assets\shader\xRay.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
