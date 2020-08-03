@@ -14,9 +14,11 @@ public class Shadow : MonoBehaviour
     string shadowMapPropertyName = "_sMap";
     string shadowMapCameraPropertyName = "_cameraProp";
     string shadowCameraWorldToLocalMatrixName = "_CameraW2LMatrix";
+    string shadowCameraProjectionMatrixName = "_CameraProjectMatrix";
     int shadowMapPropertyId;
     int shadowMapCameraPropertyId;
     int shadowMapCameraW2LMatrixId;
+    int shadowMapCameraProjectMatrixId;
     private void Awake()
     {
         Init();
@@ -44,13 +46,15 @@ public class Shadow : MonoBehaviour
         shadowMapPropertyId = Shader.PropertyToID(shadowMapPropertyName);
         shadowMapCameraPropertyId = Shader.PropertyToID(shadowMapCameraPropertyName);
         shadowMapCameraW2LMatrixId = Shader.PropertyToID(shadowCameraWorldToLocalMatrixName);
+        shadowMapCameraProjectMatrixId = Shader.PropertyToID(shadowCameraProjectionMatrixName);
         Shader.SetGlobalVector(shadowMapCameraPropertyId, new Vector4(shadowCamera.orthographicSize, shadowCamera.nearClipPlane,shadowCamera.farClipPlane));
         Shader.SetGlobalTexture(shadowMapPropertyId, shadowMap);
         Debug.Log("world2LocalMatrix " + shadowCamera.transform.worldToLocalMatrix);
         Debug.Log("worldToCameraMatrix " + shadowCamera.worldToCameraMatrix);
         Debug.Log("cameraProjectionMatrix : " + shadowCamera.projectionMatrix.ToString());
         Debug.Log("after project matrix " + shadowCamera.projectionMatrix * shadowCamera.worldToCameraMatrix);
-        Shader.SetGlobalMatrix(shadowMapCameraW2LMatrixId, shadowCamera.projectionMatrix * shadowCamera.worldToCameraMatrix );
+        Shader.SetGlobalMatrix(shadowMapCameraW2LMatrixId, shadowCamera.worldToCameraMatrix );
+        Shader.SetGlobalMatrix(shadowMapCameraProjectMatrixId, shadowCamera.projectionMatrix);
     }
 
     // Start is called before the first frame update
