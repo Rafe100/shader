@@ -82,14 +82,19 @@ Shader "Custom/shadow"
 				float shadowMapDepth_4 = SAMPLE_DEPTH_TEXTURE(_sMap, coord.xy + _sMap_TexelSize.xy);
 
 				//shadow = shadow * 2 - 1;
-				fixed4 col = fixed4(0.1, 0.1, 0.1,1);
+				fixed4 col = fixed4(0.5, 0.5, 0.5,1);
 				//fixed depth = LinearDepth(shadow);
 				//fixed shadow = SHADOW_ATTENUATION(i);
 				
 
 				//direction light z vector
 				float4 lightDir = normalize(_CameraW2LMatrix[2]);
-				col.xyz += dot(lightDir.xyz, i.worldNormal.xyz);
+				float cosLN = dot(lightDir.xyz, normalize(i.worldNormal.xyz));
+				float sinLN = sqrt(1 - cosLN * cosLN);
+				float tanLN = sinLN / cosLN;
+				float minBias = tanLN * _sMap_TexelSize.x *0.5 ;
+				//col.xyz += cosLN;
+
 #if defined (UNITY_REVERSED_Z) 
 				shadowMapDepth = 1 - shadowMapDepth;
 #endif
@@ -99,12 +104,13 @@ Shader "Custom/shadow"
 					//shadowMapDepth += 0.000001;
 					//shadowMapDepth += unity_LightShadowBias.z;
 					shadowMapDepth += 0.00000038;
+					shadowMapDepth += minBias;
 				}
 
 				
 
-				if (coord.z > shadowMapDepth) {
-					col = fixed4(0.05, 0.05, 0.05, 1);
+				if (coord.z > shadowMapDepth || cosLN <= 0) {
+					col = fixed4(0.1, 0.1, 0.1, 1);
 				}
 				//col = col;
                 return col;
